@@ -26,29 +26,19 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.6.0"
 
-
   s.add_dependency "chef-config", "= #{Chef::Knife::VERSION}"
   s.add_dependency "chef-utils", "= #{Chef::Knife::VERSION}"
   s.add_dependency "chef", "= #{Chef::Knife::VERSION}"
   s.add_dependency "train-core", "~> 3.2", ">= 3.2.28" # 3.2.28 fixes sudo prompts. See https://github.com/chef/chef/pull/9635
   s.add_dependency "train-winrm", ">= 0.2.5"
-
   s.add_dependency "license-acceptance", ">= 1.0.5", "< 3"
   s.add_dependency "mixlib-cli", ">= 2.1.1", "< 3.0"
-
-  # Not directly referenced via require, so removing for now
-  # s.add_dependency "mixlib-log", ">= 2.0.3", "< 4.0"
-  # s.add_dependency "mixlib-authentication", ">= 2.1", "< 4"
-  # s.add_dependency "mixlib-shellout", ">= 3.1.1", "< 4.0"
   s.add_dependency "mixlib-archive", ">= 0.4", "< 2.0"
   s.add_dependency "ohai", "~> 17.0"
-  # no references found so far: s.add_dependency "inspec-core", "~> 4.23"
-
   s.add_dependency "ffi", ">= 1.9.25", "< 1.14.0" # 1.14 breaks i386 windows. It should be fixed in 1.14.3
   s.add_dependency "ffi-yajl", "~> 2.2"
   s.add_dependency "net-ssh", ">= 5.1", "< 7"
   s.add_dependency "net-ssh-multi", "~> 1.2", ">= 1.2.1"
-  # no reference found so far: s.add_dependency "net-sftp", ">= 2.1.2", "< 4.0" # romte_file in chef
   s.add_dependency "ed25519", "~> 1.2" # ed25519 ssh key support
   s.add_dependency "bcrypt_pbkdf", "= 1.1.0.rc2" # ed25519 ssh key support
   s.add_dependency "highline", ">= 1.6.9", "< 3" # Used in UI to present a list, no other usage.
@@ -58,17 +48,9 @@ Gem::Specification.new do |s|
   s.add_dependency "tty-table", "~> 0.11" # knife render table output.
   s.add_dependency "pastel" # knife ui.color
   s.add_dependency "erubis", "~> 2.7"
-  # no references found so far: s.add_dependency "diff-lcs", ">= 1.2.4", "< 1.4.0" # 1.4 breaks output
-  # no references found so far: s.add_dependency "ffi-libarchive", "~> 1.0", ">= 1.0.3"
-  # no references found so far s.add_dependency "chef-zero", ">= 14.0.11"
-  s.add_dependency "chef-vault" # confirmed, knife
+  s.add_dependency "chef-vault" # knife vault
 
-  # no knife references found so far: s.add_dependency "plist", "~> 3.2"
-  # no knife references found so far: s.add_dependency "iniparse", "~> 1.4"
-  # no knife references found so far: s.add_dependency "addressable"
-  # no knife references found so far: s.add_dependency "syslog-logger", "~> 1.6"
-  # no knife references found so far: s.add_dependency "uuidtools", ">= 2.1.5", "< 3.0"
-  # no knife references found so far: s.add_dependency "proxifier", "~> 1.0"
+  s.add_development_dependency "chefstyle"
 
   s.bindir       = "bin"
   s.executables  = %w{ knife }
@@ -76,8 +58,8 @@ Gem::Specification.new do |s|
   s.require_paths = %w{ lib }
   s.files = %w{Gemfile Rakefile LICENSE README.md} +
     Dir.glob("{lib,spec}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) } +
-    Dir.glob("*.gemspec") +
-    Dir.glob("../tasks/rspec.rb")
+    Dir.glob("*.gemspec") # +
+  # Dir.glob("../tasks/rspec.rb")
 
   s.metadata = {
     "bug_tracker_uri"   => "https://github.com/chef/chef/issues",
