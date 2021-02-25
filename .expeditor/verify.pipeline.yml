@@ -56,6 +56,8 @@ steps:
     - /workdir/.expeditor/scripts/bk_container_prep.sh
     - cd /workdir; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package
     - bundle exec rake spec:integration
+    - cd /workdir/knife; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package
+    - bundle exec rake spec:integration
   expeditor:
     executor:
       docker:
@@ -68,6 +70,8 @@ steps:
     - apt-get update -y
     - apt-get install -y cron locales # needed for functional tests to pass
     - cd /workdir; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package ruby_prof
+    - bundle exec rake spec:functional
+    - cd /workdir/knife; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package ruby_prof
     - bundle exec rake spec:functional
   expeditor:
     executor:
@@ -138,6 +142,8 @@ steps:
     - yum install -y crontabs e2fsprogs
     - cd /workdir; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package ruby_prof
     - bundle exec rake spec:functional
+    - cd /workdir/knife; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package ruby_prof
+    - bundle exec rake spec:functional
   expeditor:
     executor:
       docker:
@@ -173,6 +179,8 @@ steps:
     - zypper install -y cronie insserv-compat
     - cd /workdir; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package ruby_prof
     - bundle exec rake spec:functional
+    - cd /workdir/knife; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package ruby_prof
+    - bundle exec rake spec:functional
   expeditor:
     executor:
       docker:
@@ -207,6 +215,8 @@ steps:
     - /workdir/.expeditor/scripts/bk_container_prep.sh
     - dnf install -y crontabs e2fsprogs
     - cd /workdir; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package ruby_prof
+    - bundle exec rake spec:functional
+    - cd /workdir/knife; bundle install --jobs=3 --retry=3 --path=vendor/bundle --without omnibus_package ruby_prof
     - bundle exec rake spec:functional
   expeditor:
     executor:

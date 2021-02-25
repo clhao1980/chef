@@ -26,8 +26,16 @@ winrm quickconfig -q
 Write-Output "--- bundle install"
 bundle config set --local without 'omnibus_package'
 bundle install --jobs=3 --retry=3
-if (-not $?) { throw "Unable to install gem dependencies" }
+if (-not $?) { throw "Unable to install gem dependencies for chef" }
 
 Write-Output "+++ bundle exec rake spec:functional"
 bundle exec rake spec:functional
 if (-not $?) { throw "Chef functional specs failing." }
+Write-Output "+++ Knife - bundle exec rake spec:functional"
+
+Set-Location -Path knife
+bundle config set --local without 'omnibus_package'
+bundle install --jobs=3 --retry=3
+if (-not $?) { throw "Unable to install gem dependencies for knife" }
+bundle exec rake spec:functional
+if (-not $?) { throw "Knife functional specs failing." }
